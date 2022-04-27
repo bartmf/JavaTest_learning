@@ -1,4 +1,4 @@
-package ru.bart.addressbook;
+package ru.bart.addressbook.model;
 
 public class GroupData {
     private final String name;

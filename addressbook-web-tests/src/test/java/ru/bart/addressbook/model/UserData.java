@@ -1,4 +1,4 @@
-package ru.bart.addressbook;
+package ru.bart.addressbook.model;
 
 public class UserData {
     private final String name;
