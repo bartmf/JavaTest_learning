@@ -14,7 +14,8 @@ public class UserData {
     private final String fax;
     private final String email;
 
-    public UserData(String name, String middleName, String lastName, String nickName, String title, String company, String address, String homePhone, String mobilePhone, String workPhone, String fax, String email) {
+    public UserData(String name, String middleName, String lastName, String nickName, String title, String company,
+                    String address, String homePhone, String mobilePhone, String workPhone, String fax, String email) {
         this.name = name;
         this.middleName = middleName;
         this.lastName = lastName;

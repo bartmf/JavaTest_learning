@@ -10,6 +10,14 @@ public class UserHelper extends HelperBase{
     super(wd);
   }
 
+  public void editUser(){
+      wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img")).click();
+      //click(By.("xpath=//tr[3]/td[8]/a/img"));
+  }
+
+  public void selectUser(){click(By.id("3"));}
+  public void delUser(){click(By.xpath("//input[@value='Delete']"));}
+
   public void fillInfoNewUser(UserData userData) {
       wd.findElement(By.name("firstname")).click();
       wd.findElement(By.name("firstname")).clear();

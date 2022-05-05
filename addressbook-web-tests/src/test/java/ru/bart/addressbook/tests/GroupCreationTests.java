@@ -5,7 +5,6 @@ import ru.bart.addressbook.model.GroupData;
 
 public class GroupCreationTests extends TestBase{
 
-
   @Test
   public void testGroupCreation() throws Exception {
     applicationManager.getNavigationHelper().gotoGroupPage();

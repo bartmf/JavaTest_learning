@@ -9,8 +9,13 @@ public class NavigationHelper extends HelperBase{
         super(wd);
     }
 
+    public void gotoHomePage(){click(By.linkText("home"));}// Check this func
     public void gotoGroupPage() {
         click(By.linkText("groups"));
+    }
+
+    public void gotoGroupEdit(){
+        click(By.name("edit"));
     }
 
     public void godoCreateNewUser() {
