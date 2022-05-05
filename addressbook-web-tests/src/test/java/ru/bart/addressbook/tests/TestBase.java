@@ -6,7 +6,7 @@ import ru.bart.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-    protected final ApplicationManager applicationManager = new ApplicationManager();
+    protected final ApplicationManager applicationManager = new ApplicationManager("firefox");
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() throws Exception {

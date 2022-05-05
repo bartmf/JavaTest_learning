@@ -1,12 +1,12 @@
 package ru.bart.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 import ru.bart.addressbook.model.UserData;
 
 public class UserHelper extends HelperBase{
 
-  public UserHelper(FirefoxDriver wd) {
+  public UserHelper(WebDriver wd) {
     super(wd);
   }
 
