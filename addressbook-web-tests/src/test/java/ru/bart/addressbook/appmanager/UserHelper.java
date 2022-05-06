@@ -15,7 +15,7 @@ public class UserHelper extends HelperBase{
       //click(By.("xpath=//tr[3]/td[8]/a/img"));
   }
 
-  public void selectUser(){click(By.id("3"));}
+  public void selectUser(){click(By.name("selected[]"));}
   public void delUser(){click(By.xpath("//input[@value='Delete']"));}
 
   public void fillInfoNewUser(UserData userData) {
@@ -56,4 +56,6 @@ public class UserHelper extends HelperBase{
       wd.findElement(By.name("email")).clear();
       wd.findElement(By.name("email")).sendKeys(userData.getEmail());
     }
+
+
 }
