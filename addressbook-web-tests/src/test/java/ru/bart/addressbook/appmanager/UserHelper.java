@@ -24,42 +24,26 @@ public class UserHelper extends HelperBase{
 
 
   public void fillInfoNewUser(UserData userData) {
-      wd.findElement(By.name("firstname")).click();
-      wd.findElement(By.name("firstname")).clear();
-      wd.findElement(By.name("firstname")).sendKeys(userData.getName());
-      wd.findElement(By.name("middlename")).click();
-      wd.findElement(By.name("middlename")).clear();
-      wd.findElement(By.name("middlename")).sendKeys(userData.getMiddleName());
-      wd.findElement(By.name("lastname")).click();
-      wd.findElement(By.name("lastname")).clear();
-      wd.findElement(By.name("lastname")).sendKeys(userData.getLastName());
-      wd.findElement(By.name("nickname")).click();
-      wd.findElement(By.name("nickname")).clear();
-      wd.findElement(By.name("nickname")).sendKeys(userData.getNickName());
-      wd.findElement(By.name("title")).click();
-      wd.findElement(By.name("title")).clear();
-      wd.findElement(By.name("title")).sendKeys(userData.getTitle());
-      wd.findElement(By.name("company")).click();
-      wd.findElement(By.name("company")).clear();
-      wd.findElement(By.name("company")).sendKeys(userData.getCompany());
-      wd.findElement(By.name("address")).click();
-      wd.findElement(By.name("address")).clear();
-      wd.findElement(By.name("address")).sendKeys(userData.getAddress());
-      wd.findElement(By.name("home")).click();
-      wd.findElement(By.name("home")).clear();
-      wd.findElement(By.name("home")).sendKeys(userData.getHomePhone());
-      //wd.findElement(By.name("mobile")).click();
-      //wd.findElement(By.name("mobile")).clear();
-      //wd.findElement(By.name("mobile")).sendKeys(userData.getMobilePhone());
-      wd.findElement(By.name("work")).click();
-      wd.findElement(By.name("work")).clear();
-      wd.findElement(By.name("work")).sendKeys(userData.getWorkPhone());
-      wd.findElement(By.name("fax")).click();
-      wd.findElement(By.name("fax")).clear();
-      wd.findElement(By.name("fax")).sendKeys(userData.getFax());
-      wd.findElement(By.name("email")).click();
-      wd.findElement(By.name("email")).clear();
-      wd.findElement(By.name("email")).sendKeys(userData.getEmail());
+      type(userData.getName(), "firstname");
+      type(userData.getMiddleName(), "middlename");
+      type(userData.getLastName(), "lastname");
+      type(userData.getNickName(), "nickname");
+      type(userData.getTitle(), "title");
+      type(userData.getCompany(), "company");
+      type(userData.getAddress(), "address");
+      type(userData.getHomePhone(), "home");
+      type(userData.getMobilePhone(), "mobile");
+      type(userData.getWorkPhone(), "work");
+      type(userData.getFax(), "fax");
+      type(userData.getEmail(), "email");
+  }
+
+    private void type(String userData, String locator) {
+        if(userData != null) {
+            wd.findElement(By.name(locator)).click();
+            wd.findElement(By.name(locator)).clear();
+            wd.findElement(By.name(locator)).sendKeys(userData);
+        }
     }
 
     public boolean isThereUser(){
@@ -86,7 +70,7 @@ public class UserHelper extends HelperBase{
             int id = Integer.parseInt(columns.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String firstName = columns.get(2).getText();
             String lastName = columns.get(1).getText();
-            UserData user = new UserData(id, firstName, lastName);
+            UserData user = new UserData().withId(id).withName(firstName).withLastName(lastName);
             users.add(user);
         }
         return users;

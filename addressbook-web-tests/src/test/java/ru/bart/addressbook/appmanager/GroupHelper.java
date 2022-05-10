@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.bart.addressbook.model.GroupData;
-import ru.bart.addressbook.model.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,9 @@ public class GroupHelper extends HelperBase{
         click(By.name("new"));
     }
 
+    public void initGroupModif(){
+        click(By.name("edit"));
+    }
     public void updateGroup(){
         click(By.name("update"));
     }
@@ -41,10 +43,16 @@ public class GroupHelper extends HelperBase{
         click(By.linkText("group page"));
     }
 
-    public void createGroup(GroupData groupData) {
+    public void create(GroupData groupData) {
         initGroupCreation();
         fillGroupForm(groupData);
         submitGroupCreation();
+    }
+    public void modification(GroupData group, int index) {
+        selectGroup(index);
+        initGroupModif();
+        fillGroupForm(group);
+        updateGroup();
     }
 
     public boolean isThereAGroup() {
@@ -55,13 +63,13 @@ public class GroupHelper extends HelperBase{
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> getGroupList() {
+    public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements){
             String name = element.getText();
-            String id = element.findElement(By.tagName("input")).getAttribute("value");
-            GroupData group = new GroupData(name, null, null);
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            GroupData group = new GroupData().withId(id).withName(name);
             groups.add(group);
         }
         return groups;

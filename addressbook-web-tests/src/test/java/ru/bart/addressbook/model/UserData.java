@@ -4,65 +4,18 @@ import java.util.Objects;
 
 public class UserData {
     private int id = Integer.MAX_VALUE;
-    private final String name;
-    private final String middleName;
-    private final String lastName;
-    private final String nickName;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String homePhone;
-    private final String mobilePhone;
-    private final String workPhone;
-    private final String fax;
-    private final String email;
-
-    public UserData(String name, String middleName, String lastName, String nickName, String title, String company,
-                    String address, String homePhone, String mobilePhone, String workPhone, String fax, String email) {
-        this.name = name;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.homePhone = homePhone;
-        this.mobilePhone = mobilePhone;
-        this.workPhone = workPhone;
-        this.fax = fax;
-        this.email = email;
-    }
-
-    public UserData(int id, String name, String lastName) {
-        this.id = id;
-        this.name = name;
-        this.middleName = "middleName";
-        this.lastName = lastName;
-        this.nickName = "nickName";
-        this.title = "title";
-        this.company = "company";
-        this.address = "address";
-        this.homePhone = "homePhone";
-        this.mobilePhone = "mobilePhone";
-        this.workPhone = "workPhone";
-        this.fax = "fax";
-        this.email = "email";
-    }
-
-    public UserData(String name, String lastName) {
-        this.name = name;
-        this.middleName = "middleName";
-        this.lastName = lastName;
-        this.nickName = "nickName";
-        this.title = "title";
-        this.company = "company";
-        this.address = "address";
-        this.homePhone = "homePhone";
-        this.mobilePhone = "mobilePhone";
-        this.workPhone = "workPhone";
-        this.fax = "fax";
-        this.email = "email";
-    }
+    private String name;
+    private String middleName;
+    private String lastName;
+    private String nickName;
+    private String title;
+    private String company;
+    private String address;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+    private String fax;
+    private String email;
 
     public String getName() {
         return name;
@@ -116,8 +69,69 @@ public class UserData {
         return id;
     }
 
-    public void setId(int id) {
+    public UserData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public UserData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public UserData withMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+
+    public UserData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public UserData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
+
+    public UserData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public UserData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public UserData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public UserData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public UserData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public UserData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
+    public UserData withFax(String fax) {
+        this.fax = fax;
+        return this;
+    }
+
+    public UserData withEmail(String email) {
+        this.email = email;
+        return this;
     }
 
     @Override
