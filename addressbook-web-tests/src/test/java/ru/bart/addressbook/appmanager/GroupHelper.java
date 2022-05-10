@@ -3,6 +3,7 @@ package ru.bart.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.bart.addressbook.model.GroupData;
+import ru.bart.addressbook.model.UserData;
 
 public class GroupHelper extends HelperBase{
 
@@ -30,5 +31,15 @@ public class GroupHelper extends HelperBase{
 
     public void returnToGroupPage() {
         click(By.linkText("group page"));
+    }
+
+    public void createGroup(GroupData groupData) {
+        initGroupCreation();
+        fillGroupForm(groupData);
+        submitGroupCreation();
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
     }
 }

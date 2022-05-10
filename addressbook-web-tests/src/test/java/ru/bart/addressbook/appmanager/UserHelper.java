@@ -11,8 +11,8 @@ public class UserHelper extends HelperBase{
   }
 
   public void editUser(){
-      wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img")).click();
-      //click(By.("xpath=//tr[3]/td[8]/a/img"));
+      //wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img")).click();
+      click(By.xpath("//a[@href='edit.php?id=2']"));//"//img[@alt='Edit']"));
   }
 
   public void selectUser(){click(By.name("selected[]"));}
@@ -57,5 +57,12 @@ public class UserHelper extends HelperBase{
       wd.findElement(By.name("email")).sendKeys(userData.getEmail());
     }
 
+    public boolean isThereUser(){
+      return isElementPresent(By.name("selected[]"));
+    }
 
+    public void creationUser(UserData userData) {
+            fillInfoNewUser(userData);
+            wd.findElement(By.xpath("//input[21]")).click();
+    }
 }
