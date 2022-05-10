@@ -1,35 +1,35 @@
 package ru.bart.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.bart.addressbook.model.GroupData;
+import ru.bart.addressbook.model.Groups;
 
-import java.util.Comparator;
-import java.util.List;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.*;
 
 public class GroupModifTests extends TestBase{
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        appMan.goTo().groupPage();
+        if(appMan.group().all().size() == 0){
+            appMan.group().create(new GroupData().withName("test").withHeader("test").withFooter("test"));
+            appMan.goTo().groupPage();
+        }
+    }
     @Test
     void groupMod(){
-        appMan.getNavigationHelper().gotoGroupPage();
-        if(!appMan.getGroupHelper().isThereAGroup()){
-            appMan.getGroupHelper().createGroup(new GroupData("test", "test", "test"));
-            appMan.getNavigationHelper().gotoGroupPage();
-        }
-        List<GroupData> before = appMan.getGroupHelper().getGroupList();
-        appMan.getGroupHelper().selectGroup(before.size() - 1);
-        appMan.getNavigationHelper().gotoGroupEdit();
-        GroupData group = new GroupData("eeee", "aaaaa", "lolo");
-        appMan.getGroupHelper().fillGroupForm(group);
-        appMan.getGroupHelper().updateGroup();
-        appMan.getNavigationHelper().gotoGroupPage();
-        List<GroupData> after = appMan.getGroupHelper().getGroupList();
-        Assert.assertEquals(after.size(), before.size());
-
-        before.remove(before.size()-1);
-        before.add(group);
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        Groups before = appMan.group().all();
+        GroupData modGroupe = before.iterator().next();
+        GroupData group = new GroupData().withId(modGroupe.getId()).withName("eeee").
+                withHeader("aaaaa").withFooter("lolo");
+        appMan.group().modification(group);
+        appMan.goTo().groupPage();
+        Groups after = appMan.group().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalToObject(before.without(modGroupe).withAdded(group)));
     }
 }

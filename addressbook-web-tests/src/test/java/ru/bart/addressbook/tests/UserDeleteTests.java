@@ -1,31 +1,33 @@
 package ru.bart.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.bart.addressbook.model.UserData;
+import ru.bart.addressbook.model.Users;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.*;
 
 public class UserDeleteTests extends TestBase{
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        appMan.goTo().homePage();
+        if (appMan.user().all().size() == 0) {
+            appMan.user().create(new UserData().
+                    withName("TestModifName").withLastName("TestModifLastName"));
+        }
+    }
     @Test
     void delUser(){
-        appMan.getNavigationHelper().gotoHomePage();
-        if (!appMan.getUserHelper().isThereUser()) {
-            appMan.getUserHelper().creationUser(new UserData("TestModifName", "TestModifLastName"));
-        }
-        List<UserData> before = appMan.getUserHelper().getUserList();
-        appMan.getUserHelper().selectUser();
-        appMan.getUserHelper().delUser();
-        appMan.getUserHelper().confirm();
-        appMan.getNavigationHelper().gotoHomePage();
-        List<UserData> after = appMan.getUserHelper().getUserList();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(before.size()-1);
-        Comparator<? super UserData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        Users before = appMan.user().all();
+        UserData deleteUser = before.iterator().next();
+        appMan.user().delete(deleteUser);
+        appMan.user().confirm();
+        appMan.goTo().homePage();
+        Users after = appMan.user().all();
+        assertEquals(after.size(), before.size() - 1);
+        assertThat(after, equalToObject(before.without(deleteUser)));
     }
 }
