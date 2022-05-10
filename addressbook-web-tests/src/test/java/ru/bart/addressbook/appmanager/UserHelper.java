@@ -2,7 +2,11 @@ package ru.bart.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.bart.addressbook.model.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserHelper extends HelperBase{
 
@@ -12,11 +16,12 @@ public class UserHelper extends HelperBase{
 
   public void editUser(){
       //wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img")).click();
-      click(By.xpath("//a[@href='edit.php?id=2']"));//"//img[@alt='Edit']"));
+      click(By.xpath("//img[@alt='Edit']"));
   }
 
   public void selectUser(){click(By.name("selected[]"));}
   public void delUser(){click(By.xpath("//input[@value='Delete']"));}
+
 
   public void fillInfoNewUser(UserData userData) {
       wd.findElement(By.name("firstname")).click();
@@ -43,9 +48,9 @@ public class UserHelper extends HelperBase{
       wd.findElement(By.name("home")).click();
       wd.findElement(By.name("home")).clear();
       wd.findElement(By.name("home")).sendKeys(userData.getHomePhone());
-      wd.findElement(By.name("mobile")).click();
-      wd.findElement(By.name("mobile")).clear();
-      wd.findElement(By.name("mobile")).sendKeys(userData.getMobilePhone());
+      //wd.findElement(By.name("mobile")).click();
+      //wd.findElement(By.name("mobile")).clear();
+      //wd.findElement(By.name("mobile")).sendKeys(userData.getMobilePhone());
       wd.findElement(By.name("work")).click();
       wd.findElement(By.name("work")).clear();
       wd.findElement(By.name("work")).sendKeys(userData.getWorkPhone());
@@ -63,6 +68,27 @@ public class UserHelper extends HelperBase{
 
     public void creationUser(UserData userData) {
             fillInfoNewUser(userData);
-            wd.findElement(By.xpath("//input[21]")).click();
+            click(By.name("submit"));
+            click(By.xpath("//a[contains(text(),'home page')]"));
+            //wd.findElement(By.xpath("//input[21]")).click();
+    }
+
+    public int getUserCount() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<UserData> getUserList() {
+        List<UserData> users = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        //List<WebElement> elements = wd.findElements(By.tagName("tr"));
+        for (WebElement element : elements){
+            List<WebElement> columns = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(columns.get(0).findElement(By.tagName("input")).getAttribute("id"));
+            String firstName = columns.get(2).getText();
+            String lastName = columns.get(1).getText();
+            UserData user = new UserData(id, firstName, lastName);
+            users.add(user);
+        }
+        return users;
     }
 }

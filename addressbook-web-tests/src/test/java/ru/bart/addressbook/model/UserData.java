@@ -1,6 +1,9 @@
 package ru.bart.addressbook.model;
 
+import java.util.Objects;
+
 public class UserData {
+    private int id = Integer.MAX_VALUE;
     private final String name;
     private final String middleName;
     private final String lastName;
@@ -28,6 +31,37 @@ public class UserData {
         this.workPhone = workPhone;
         this.fax = fax;
         this.email = email;
+    }
+
+    public UserData(int id, String name, String lastName) {
+        this.id = id;
+        this.name = name;
+        this.middleName = "middleName";
+        this.lastName = lastName;
+        this.nickName = "nickName";
+        this.title = "title";
+        this.company = "company";
+        this.address = "address";
+        this.homePhone = "homePhone";
+        this.mobilePhone = "mobilePhone";
+        this.workPhone = "workPhone";
+        this.fax = "fax";
+        this.email = "email";
+    }
+
+    public UserData(String name, String lastName) {
+        this.name = name;
+        this.middleName = "middleName";
+        this.lastName = lastName;
+        this.nickName = "nickName";
+        this.title = "title";
+        this.company = "company";
+        this.address = "address";
+        this.homePhone = "homePhone";
+        this.mobilePhone = "mobilePhone";
+        this.workPhone = "workPhone";
+        this.fax = "fax";
+        this.email = "email";
     }
 
     public String getName() {
@@ -76,5 +110,35 @@ public class UserData {
 
     public String getEmail() {
         return email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName'" + lastName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return Objects.equals(name, userData.name) && Objects.equals(lastName, userData.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, lastName);
     }
 }
