@@ -12,19 +12,19 @@ import static org.testng.Assert.*;
 public class GroupDeleteTests extends TestBase{
     @BeforeMethod
     public void ensurePreconditions(){
-        appMan.goTo().groupPage();
-        if(appMan.group().all().size() == 0){
-            appMan.group().create(new GroupData().withName("test").withHeader("test").withFooter("test"));
-            appMan.goTo().groupPage();
+        app.goTo().groupPage();
+        if(app.group().all().size() == 0){
+            app.group().create(new GroupData().withName("test").withHeader("test").withFooter("test"));
+            app.goTo().groupPage();
         }
     }
     @Test
     void groupDel (){
-        Groups before = appMan.group().all();
+        Groups before = app.group().all();
         GroupData deletedGroup = before.iterator().next();
-        appMan.group().delete(deletedGroup);
-        appMan.goTo().groupPage();
-        Groups after = appMan.group().all();
+        app.group().delete(deletedGroup);
+        app.goTo().groupPage();
+        Groups after = app.group().all();
         assertEquals(after.size(), before.size() - 1);
         assertThat(before, equalToObject(after.without(deletedGroup)));
     }

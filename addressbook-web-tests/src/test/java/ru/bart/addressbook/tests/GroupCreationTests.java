@@ -13,13 +13,13 @@ public class GroupCreationTests extends TestBase{
 
   @Test
   public void testGroupCreation() throws Exception {
-    appMan.goTo().groupPage();
-    Groups before = appMan.group().all();
+    app.goTo().groupPage();
+    Groups before = app.group().all();
     GroupData group = new GroupData().withName("test1").withHeader("test2").withFooter("tester");
-    appMan.group().create(group);
-    appMan.group().returnToPage();
-    Groups after = appMan.group().all();
-    assertEquals(after.size(), before.size() + 1);
+    app.group().create(group);
+    app.group().returnToPage();
+    assertEquals(app.group().count(), before.size() + 1);
+    Groups after = app.group().all();
     assertThat(after, equalToObject(
             before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }

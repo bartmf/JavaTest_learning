@@ -83,4 +83,8 @@ public class UserHelper extends HelperBase {
         }
         return new Users(cashUsers);
     }
+
+    public int count() {
+        return wd.findElements(By.name(("selected[]"))).size();
+    }
 }

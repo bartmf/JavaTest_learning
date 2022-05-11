@@ -13,20 +13,20 @@ public class UserModifTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions(){
-        appMan.goTo().homePage();
-        if (appMan.user().all().size() == 0) {
-            appMan.user().create(new UserData().
+        app.goTo().homePage();
+        if (app.user().all().size() == 0) {
+            app.user().create(new UserData().
                     withName("TestNotModifName").withLastName("TestNotModifLastName"));
         }
     }
     @Test
     void editUser() {
-        Users before = appMan.user().all();
+        Users before = app.user().all();
         UserData modUser = before.iterator().next();
         UserData user = new UserData().withId(modUser.getId()).withName("nameModif").withLastName("LastName Modif");
-        appMan.user().edit(user);
-        Users after = appMan.user().all();
-        assertEquals(after.size(), before.size());
+        app.user().edit(user);
+        assertEquals(app.user().count(), before.size());
+        Users after = app.user().all();
         assertThat(after, equalToObject(before.without(modUser).withAdded(user)));
     }
 }

@@ -7,19 +7,19 @@ import ru.bart.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-    protected static final ApplicationManager appMan = new ApplicationManager(BrowserType.FIREFOX);
+    protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {
-        appMan.init();
+        app.init();
     }
 
     @AfterSuite(alwaysRun = true)
     public void tearDown() throws Exception {
-        appMan.stop();
+        app.stop();
     }
 
     public ApplicationManager getAppMan() {
-        return appMan;
+        return app;
     }
 }

@@ -13,21 +13,21 @@ public class UserDeleteTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions(){
-        appMan.goTo().homePage();
-        if (appMan.user().all().size() == 0) {
-            appMan.user().create(new UserData().
+        app.goTo().homePage();
+        if (app.user().all().size() == 0) {
+            app.user().create(new UserData().
                     withName("TestModifName").withLastName("TestModifLastName"));
         }
     }
     @Test
     void delUser(){
-        Users before = appMan.user().all();
+        Users before = app.user().all();
         UserData deleteUser = before.iterator().next();
-        appMan.user().delete(deleteUser);
-        appMan.user().confirm();
-        appMan.goTo().homePage();
-        Users after = appMan.user().all();
-        assertEquals(after.size(), before.size() - 1);
+        app.user().delete(deleteUser);
+        app.user().confirm();
+        app.goTo().homePage();
+        assertEquals(app.user().count(), before.size() - 1);
+        Users after = app.user().all();
         assertThat(after, equalToObject(before.without(deleteUser)));
     }
 }
