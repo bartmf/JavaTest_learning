@@ -11,6 +11,7 @@ public class UserData {
     private String title;
     private String company;
     private String address;
+    private String allPhones;
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
@@ -67,6 +68,15 @@ public class UserData {
 
     public int getId() {
         return id;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public UserData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
     }
 
     public UserData withId(int id) {
