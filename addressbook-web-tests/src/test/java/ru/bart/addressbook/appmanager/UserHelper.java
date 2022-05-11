@@ -15,13 +15,17 @@ public class UserHelper extends HelperBase {
     }
 
     public void edit(UserData user) {
-        click(By.xpath("//a[@href='edit.php?id=" + user.getId() +"']"));
+        initUserModificationById(user.getId());
         //click(By.xpath("//img[@alt='Edit']"));
         fillInfo(user);
         click(By.name("update"));
         cashUsers = null;
         click(By.xpath("//a[contains(text(),'home page')]"));
 
+    }
+
+    private void initUserModificationById(int id) {
+        click(By.xpath("//a[@href='edit.php?id=" + id +"']"));
     }
 
     public void selectById(int id) {
@@ -86,5 +90,16 @@ public class UserHelper extends HelperBase {
 
     public int count() {
         return wd.findElements(By.name(("selected[]"))).size();
+    }
+
+    public UserData infoFromEditForm(UserData user) {
+        initUserModificationById(user.getId());
+        String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new UserData().withId(user.getId());
     }
 }
