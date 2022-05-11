@@ -1,5 +1,6 @@
 package ru.bart.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class UserData {
@@ -23,6 +24,8 @@ public class UserData {
     private String email3;
 
     private String allEmails;
+
+    private File photo;
 
     public String getName() {
         return name;
@@ -90,6 +93,15 @@ public class UserData {
 
     public String getAllEmails() {
         return allEmails;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public UserData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
     }
 
     public UserData withEmail2(String email2) {
@@ -182,7 +194,7 @@ public class UserData {
         return "UserData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", lastName'" + lastName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 

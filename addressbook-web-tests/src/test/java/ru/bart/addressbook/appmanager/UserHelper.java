@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.bart.addressbook.model.UserData;
 import ru.bart.addressbook.model.Users;
 
+import java.io.File;
 import java.util.List;
 
 public class UserHelper extends HelperBase {
@@ -66,6 +67,7 @@ public class UserHelper extends HelperBase {
         type(userData.getWorkPhone(), "work");
         type(userData.getFax(), "fax");
         type(userData.getEmail(), "email");
+        attach(userData.getPhoto(), "photo");
     }
 
     private void type(String userData, String locator) {
@@ -76,7 +78,11 @@ public class UserHelper extends HelperBase {
         }
     }
 
-
+    private void attach(File file, String locator) {
+        if (file != null) {
+            wd.findElement(By.name(locator)).sendKeys(file.getAbsolutePath());
+        }
+    }
     public void create(UserData userData) {
         click(By.linkText("add new"));
         fillInfo(userData);
