@@ -42,12 +42,15 @@ public class UserHelper extends HelperBase {
         initUserModificationById(user.getId());
         String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getText();//
+        String email = wd.findElement(By.name("email")).getAttribute("value");
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
         wd.navigate().back();
         return new UserData().withId(user.getId()).withName(firstName).withLastName(lastname)
-                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withEmail(email)
+                .withAddress(address);
     }
 
     public void fillInfo(UserData userData) {
@@ -92,11 +95,13 @@ public class UserHelper extends HelperBase {
         for (WebElement element : elements) {
             List<WebElement> columns = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(columns.get(0).findElement(By.tagName("input")).getAttribute("id"));
-            String firstName = columns.get(2).getText();
             String lastName = columns.get(1).getText();
+            String firstName = columns.get(2).getText();
+            String address = columns.get(3).getText();
+            String allEmails = columns.get(4).getText();
             String allPhones = columns.get(5).getText();
             cashUsers.add(new UserData().withId(id).withName(firstName).withLastName(lastName)
-                    .withAllPhones(allPhones));
+                    .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
         return new Users(cashUsers);
     }

@@ -18,6 +18,12 @@ public class UserData {
     private String fax;
     private String email;
 
+    private String email2;
+
+    private String email3;
+
+    private String allEmails;
+
     public String getName() {
         return name;
     }
@@ -72,6 +78,33 @@ public class UserData {
 
     public String getAllPhones() {
         return allPhones;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public UserData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public UserData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public UserData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
     }
 
     public UserData withAllPhones(String allPhones) {
