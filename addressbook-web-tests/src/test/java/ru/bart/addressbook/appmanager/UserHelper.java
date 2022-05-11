@@ -9,7 +9,7 @@ import ru.bart.addressbook.model.Users;
 import java.util.List;
 
 public class UserHelper extends HelperBase {
-
+    Users cashUsers = null;
     public UserHelper(WebDriver wd) {
         super(wd);
     }
@@ -19,13 +19,9 @@ public class UserHelper extends HelperBase {
         //click(By.xpath("//img[@alt='Edit']"));
         fillInfo(user);
         click(By.name("update"));
+        cashUsers = null;
         click(By.xpath("//a[contains(text(),'home page')]"));
 
-    }
-
-
-    public void select() {
-        click(By.name("selected[]"));
     }
 
     public void selectById(int id) {
@@ -35,6 +31,7 @@ public class UserHelper extends HelperBase {
     public void delete(UserData user) {
         selectById(user.getId());
         click(By.xpath("//input[@value='Delete']"));
+        cashUsers = null;
     }
 
     public void fillInfo(UserData userData) {
@@ -65,12 +62,16 @@ public class UserHelper extends HelperBase {
         click(By.linkText("add new"));
         fillInfo(userData);
         click(By.name("submit"));
+        cashUsers = null;
         click(By.xpath("//a[contains(text(),'home page')]"));
         //wd.findElement(By.xpath("//input[21]")).click();
     }
 
     public Users all() {
-        Users users = new Users();
+        if(cashUsers != null){
+            return new Users(cashUsers);
+        }
+        cashUsers = new Users();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             List<WebElement> columns = element.findElements(By.tagName("td"));
@@ -78,8 +79,8 @@ public class UserHelper extends HelperBase {
             String firstName = columns.get(2).getText();
             String lastName = columns.get(1).getText();
             UserData user = new UserData().withId(id).withName(firstName).withLastName(lastName);
-            users.add(user);
+            cashUsers.add(user);
         }
-        return users;
+        return new Users(cashUsers);
     }
 }
