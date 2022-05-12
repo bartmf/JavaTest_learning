@@ -23,7 +23,7 @@ public class UserCreationTests extends TestBase{
   @DataProvider
   public Iterator<Object[]> validUsers() throws IOException {
     String json = "";
-    try(BufferedReader reader = new BufferedReader(new FileReader("src/test/java/ru/bart/addressbook/resources/users.json"))) {
+    try(BufferedReader reader = new BufferedReader(new FileReader("/src/test/resources/users.json"))) {
       String line = reader.readLine();
       while (line != null) {
         json += line;

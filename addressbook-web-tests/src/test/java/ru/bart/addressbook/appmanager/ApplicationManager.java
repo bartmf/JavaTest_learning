@@ -23,7 +23,8 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private String browser;
 
-    String pathToProp = "/home/bart/documents/JavaTest_learning/addressbook-web-tests/src/test/java/ru/bart/addressbook/resources/";
+
+    String pathToProp = "/home/bart/documents/JavaTest_learning/addressbook-web-tests/src/test/resources/";
     private Properties properties;
     public ApplicationManager(String browser) {
         this.browser = browser;

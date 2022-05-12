@@ -25,7 +25,7 @@ public class GroupModifTests extends TestBase {
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
         String json = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/test/java/ru/bart/addressbook/resources/groups.json"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("/src/test/resources/groups.json"))) {
             String line = reader.readLine();
             while (line != null) {
                 json += line;
