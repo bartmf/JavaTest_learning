@@ -19,9 +19,11 @@ public class ApplicationManager {
     public WebDriver wd;
     private UserHelper userHelper;
     private NavigationHelper navigationHelper;
-    public GroupHelper groupHelper;
+    private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
     private String browser;
+    private DbHelper dbHelper;
+
 
 
     String pathToProp = "/home/bart/documents/JavaTest_learning/addressbook-web-tests/src/test/resources/";
@@ -35,6 +37,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format(pathToProp + "%s.properties", target))));
+        dbHelper = new DbHelper();
         switch (browser) {
             case BrowserType.CHROME:
                 wd = new ChromeDriver();
@@ -80,5 +83,9 @@ public class ApplicationManager {
 
     public UserHelper user() {
         return userHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
     }
 }

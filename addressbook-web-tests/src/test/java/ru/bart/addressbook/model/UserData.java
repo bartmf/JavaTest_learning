@@ -1,42 +1,75 @@
 package ru.bart.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class UserData {
+    @Id
+    @Column(name="id")
     private int id = Integer.MAX_VALUE;
+    @Column(name="firstname")
     @Expose
     private String name;
+    @Column(name="middlename")
     @Expose
     private String middleName;
     @Expose
+    @Column(name="lastname")
     private String lastName;
     @Expose
+    @Column(name="nickname")
     private String nickName;
     @Expose
+    @Column(name="title")
     private String title;
     @Expose
+    @Column(name="company")
     private String company;
     @Expose
+    @Column(name="address")
+    @Type(type = "text")
     private String address;
-    private String allPhones;
+    transient private String allPhones;
     @Expose
+    @Column(name="home")
+    @Type(type = "text")
     private String homePhone;
     @Expose
+    @Column(name="mobile")
+    @Type(type = "text")
     private String mobilePhone;
     @Expose
+    @Column(name="work")
+    @Type(type = "text")
     private String workPhone;
+    @Column(name="fax")
+    @Type(type = "text")
     private String fax;
     @Expose
+    @Column(name="email")
+    @Type(type = "text")
     private String email;
     @Expose
+    @Column(name="email2")
+    @Type(type = "text")
     private String email2;
     @Expose
+    @Column(name="email3")
+    @Type(type = "text")
     private String email3;
-    private String allEmails;
-    private File photo;
+    transient private String allEmails;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 
     public String getName() {
         return name;
@@ -107,11 +140,11 @@ public class UserData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public UserData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -214,11 +247,11 @@ public class UserData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserData userData = (UserData) o;
-        return id == userData.id && Objects.equals(name, userData.name);
+        return id == userData.id && Objects.equals(name, userData.name) && Objects.equals(middleName, userData.middleName) && Objects.equals(lastName, userData.lastName) && Objects.equals(nickName, userData.nickName) && Objects.equals(title, userData.title) && Objects.equals(company, userData.company) && Objects.equals(address, userData.address) && Objects.equals(homePhone, userData.homePhone) && Objects.equals(mobilePhone, userData.mobilePhone) && Objects.equals(workPhone, userData.workPhone) && Objects.equals(fax, userData.fax) && Objects.equals(email, userData.email) && Objects.equals(email2, userData.email2) && Objects.equals(email3, userData.email3);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, middleName, lastName, nickName, title, company, address, homePhone, mobilePhone, workPhone, fax, email, email2, email3);
     }
 }

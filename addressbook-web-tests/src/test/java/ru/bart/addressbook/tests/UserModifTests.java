@@ -47,11 +47,11 @@ public class UserModifTests extends TestBase{
 
     @Test(dataProvider = "validUsers")
     void editUser(UserData user) {
-        Users before = app.user().all();
+        Users before = app.db().users();
         UserData modUser = before.iterator().next();
         app.user().edit(user.withId(modUser.getId()));
         assertEquals(app.user().count(), before.size());
-        Users after = app.user().all();
+        Users after = app.db().users();
         assertThat(after, equalToObject(before.without(modUser).withAdded(user)));
     }
 }

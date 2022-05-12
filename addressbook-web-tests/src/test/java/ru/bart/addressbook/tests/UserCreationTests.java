@@ -38,12 +38,12 @@ public class UserCreationTests extends TestBase{
   @Test(dataProvider = "validUsers")
   public void testUserCreationTests(UserData user){
     app.goTo().homePage();
-    Users before = app.user().all();
+    Users before = app.db().users();
     app.goTo().createNewUser();
     app.user().create(user);
     app.goTo().homePage();
     assertEquals(app.user().count(), before.size() + 1);
-    Users after = app.user().all();
+    Users after = app.db().users();
     assertThat(after, equalToObject(before.withAdded(user.withId(after.stream()
             .mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
