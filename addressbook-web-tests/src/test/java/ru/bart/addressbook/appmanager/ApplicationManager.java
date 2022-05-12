@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     public WebDriver wd;
-    private UserHelper userHelper;
+    private ContactHelper contactHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
@@ -55,14 +55,14 @@ public class ApplicationManager {
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
-        userHelper = new UserHelper(wd);
+        contactHelper = new ContactHelper(wd);
         sessionHelper.login(properties.getProperty("web.admin"), properties.getProperty("web.password"));
     }
 
 
     public boolean isElementPresent(By by) {
       try {
-        userHelper.wd.findElement(by);
+        contactHelper.wd.findElement(by);
         return true;
       } catch (NoSuchElementException e) {
         return false;
@@ -70,7 +70,7 @@ public class ApplicationManager {
     }
 
     public void stop() {
-        userHelper.wd.quit();
+        contactHelper.wd.quit();
     }
 
     public GroupHelper group() {
@@ -81,8 +81,8 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public UserHelper user() {
-        return userHelper;
+    public ContactHelper user() {
+        return contactHelper;
     }
 
     public DbHelper db() {

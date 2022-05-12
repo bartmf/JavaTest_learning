@@ -3,11 +3,11 @@
 <suite name="Suite1" verbose="1">
     <test name="Users">
         <classes>
-            <class name="ru.bart.addressbook.tests.UserCreationTests"/>
-            <class name="ru.bart.addressbook.tests.UserModifTests"/>
-            <class name="ru.bart.addressbook.tests.UserAddressAndMailTests"/>
-            <class name="ru.bart.addressbook.tests.UserPhonesTest"/>
-            <class name="ru.bart.addressbook.tests.UserDeleteTests"/>
+            <class name="ru.bart.addressbook.tests.ContactCreationTests"/>
+            <class name="ru.bart.addressbook.tests.ContactModifTests"/>
+            <class name="ru.bart.addressbook.tests.ContactAddressAndMailTests"/>
+            <class name="ru.bart.addressbook.tests.ContactPhonesTest"/>
+            <class name="ru.bart.addressbook.tests.ContactDeleteTests"/>
         </classes>
     </test>
 </suite>

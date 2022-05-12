@@ -3,24 +3,24 @@ package ru.bart.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import ru.bart.addressbook.model.UserData;
-import ru.bart.addressbook.model.Users;
+import ru.bart.addressbook.model.ContactData;
+import ru.bart.addressbook.model.Contacts;
 
 import java.io.File;
 import java.util.List;
 
-public class UserHelper extends HelperBase {
-    Users cashUsers = null;
-    public UserHelper(WebDriver wd) {
+public class ContactHelper extends HelperBase {
+    Contacts cashContacts = null;
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
 
-    public void edit(UserData user) {
+    public void edit(ContactData user) {
         initUserModificationById(user.getId());
         //click(By.xpath("//img[@alt='Edit']"));
         fillInfo(user);
         click(By.name("update"));
-        cashUsers = null;
+        cashContacts = null;
         click(By.xpath("//a[contains(text(),'home page')]"));
 
     }
@@ -33,13 +33,13 @@ public class UserHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    public void delete(UserData user) {
+    public void delete(ContactData user) {
         selectById(user.getId());
         click(By.xpath("//input[@value='Delete']"));
-        cashUsers = null;
+        cashContacts = null;
     }
 
-    public UserData infoFromEditForm(UserData user) {
+    public ContactData infoFromEditForm(ContactData user) {
         initUserModificationById(user.getId());
         String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
@@ -51,12 +51,12 @@ public class UserHelper extends HelperBase {
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
         wd.navigate().back();
-        return new UserData().withId(user.getId()).withName(firstName).withLastName(lastname)
+        return new ContactData().withId(user.getId()).withName(firstName).withLastName(lastname)
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withEmail(email)
                 .withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 
-    public void fillInfo(UserData userData) {
+    public void fillInfo(ContactData userData) {
         type(userData.getName(), "firstname");
         type(userData.getMiddleName(), "middlename");
         type(userData.getLastName(), "lastname");
@@ -85,20 +85,20 @@ public class UserHelper extends HelperBase {
             wd.findElement(By.name(locator)).sendKeys(file.getAbsolutePath());
         }
     }
-    public void create(UserData userData) {
+    public void create(ContactData userData) {
         click(By.linkText("add new"));
         fillInfo(userData);
         click(By.name("submit"));
-        cashUsers = null;
+        cashContacts = null;
         click(By.xpath("//a[contains(text(),'home page')]"));
         //wd.findElement(By.xpath("//input[21]")).click();
     }
 
-    public Users all() {
-        if(cashUsers != null){
-            return new Users(cashUsers);
+    public Contacts all() {
+        if(cashContacts != null){
+            return new Contacts(cashContacts);
         }
-        cashUsers = new Users();
+        cashContacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             List<WebElement> columns = element.findElements(By.tagName("td"));
@@ -108,10 +108,10 @@ public class UserHelper extends HelperBase {
             String address = columns.get(3).getText();
             String allEmails = columns.get(4).getText();
             String allPhones = columns.get(5).getText();
-            cashUsers.add(new UserData().withId(id).withName(firstName).withLastName(lastName)
+            cashContacts.add(new ContactData().withId(id).withName(firstName).withLastName(lastName)
                     .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
-        return new Users(cashUsers);
+        return new Contacts(cashContacts);
     }
 
     public int count() {

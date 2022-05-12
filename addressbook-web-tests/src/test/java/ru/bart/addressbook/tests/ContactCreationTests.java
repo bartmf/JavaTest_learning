@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.bart.addressbook.model.UserData;
-import ru.bart.addressbook.model.Users;
+import ru.bart.addressbook.model.ContactData;
+import ru.bart.addressbook.model.Contacts;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,7 +18,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.testng.Assert.*;
 
-public class UserCreationTests extends TestBase{
+public class ContactCreationTests extends TestBase{
 
   @DataProvider
   public Iterator<Object[]> validUsers() throws IOException {
@@ -31,19 +31,19 @@ public class UserCreationTests extends TestBase{
       }
     }
     Gson gson = new Gson();
-    List<UserData> list = gson.fromJson(json, new TypeToken<List<UserData>>(){}.getType());
+    List<ContactData> list = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
     return list.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
   }
 
   @Test(dataProvider = "validUsers")
-  public void testUserCreationTests(UserData user){
+  public void testUserCreationTests(ContactData user){
     app.goTo().homePage();
-    Users before = app.db().users();
+    Contacts before = app.db().users();
     app.goTo().createNewUser();
     app.user().create(user);
     app.goTo().homePage();
     assertEquals(app.user().count(), before.size() + 1);
-    Users after = app.db().users();
+    Contacts after = app.db().users();
     assertThat(after, equalToObject(before.withAdded(user.withId(after.stream()
             .mapToInt((g) -> g.getId()).max().getAsInt()))));
     verifyUserListUi();

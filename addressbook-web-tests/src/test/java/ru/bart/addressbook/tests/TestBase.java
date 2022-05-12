@@ -10,8 +10,8 @@ import org.testng.annotations.BeforeSuite;
 import ru.bart.addressbook.appmanager.ApplicationManager;
 import ru.bart.addressbook.model.GroupData;
 import ru.bart.addressbook.model.Groups;
-import ru.bart.addressbook.model.UserData;
-import ru.bart.addressbook.model.Users;
+import ru.bart.addressbook.model.ContactData;
+import ru.bart.addressbook.model.Contacts;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -57,10 +57,10 @@ public class TestBase {
 
     public void verifyUserListUi() {
         if(Boolean.getBoolean("verifyUI")){
-            Users dbUsers = app.db().users();
-            Users uiUsers = app.user().all();
-            assertThat(uiUsers, equalTo(dbUsers.stream()
-                    .map((g) -> new UserData().withId(g.getId())
+            Contacts dbContacts = app.db().users();
+            Contacts uiContacts = app.user().all();
+            assertThat(uiContacts, equalTo(dbContacts.stream()
+                    .map((g) -> new ContactData().withId(g.getId())
                             .withName(g.getName())
                             .withAddress(g.getAddress())
                             .withLastName(g.getLastName())).collect(Collectors.toSet())));

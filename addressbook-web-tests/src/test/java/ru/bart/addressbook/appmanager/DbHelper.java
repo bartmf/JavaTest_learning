@@ -6,8 +6,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.bart.addressbook.model.GroupData;
 import ru.bart.addressbook.model.Groups;
-import ru.bart.addressbook.model.UserData;
-import ru.bart.addressbook.model.Users;
+import ru.bart.addressbook.model.ContactData;
+import ru.bart.addressbook.model.Contacts;
 
 import java.util.List;
 
@@ -32,12 +32,12 @@ public class DbHelper {
         return new Groups(result);
     }
 
-    public Users users() {
+    public Contacts users() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<UserData> result = session.createQuery( "from UserData where deprecated ='0000-00-00'").list();
+        List<ContactData> result = session.createQuery( "from UserData where deprecated ='0000-00-00'").list();
         session.getTransaction().commit();
         session.close();
-        return new Users(result);
+        return new Contacts(result);
     }
 }

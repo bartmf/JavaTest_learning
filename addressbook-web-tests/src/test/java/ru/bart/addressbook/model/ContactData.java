@@ -3,16 +3,15 @@ package ru.bart.addressbook.model;
 import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
-public class UserData {
+public class ContactData {
     @Id
     @Column(name="id")
     private int id = Integer.MAX_VALUE;
@@ -70,6 +69,9 @@ public class UserData {
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<>();
 
     public String getName() {
         return name;
@@ -143,92 +145,96 @@ public class UserData {
         return new File(photo);
     }
 
-    public UserData withPhoto(File photo) {
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
         return this;
     }
 
-    public UserData withEmail2(String email2) {
+    public ContactData withEmail2(String email2) {
         this.email2 = email2;
         return this;
     }
 
-    public UserData withEmail3(String email3) {
+    public ContactData withEmail3(String email3) {
         this.email3 = email3;
         return this;
     }
 
-    public UserData withAllEmails(String allEmails) {
+    public ContactData withAllEmails(String allEmails) {
         this.allEmails = allEmails;
         return this;
     }
 
-    public UserData withAllPhones(String allPhones) {
+    public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
         return this;
     }
 
-    public UserData withId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
         return this;
     }
 
-    public UserData withName(String name) {
+    public ContactData withName(String name) {
         this.name = name;
         return this;
     }
 
-    public UserData withMiddleName(String middleName) {
+    public ContactData withMiddleName(String middleName) {
         this.middleName = middleName;
         return this;
     }
 
-    public UserData withLastName(String lastName) {
+    public ContactData withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public UserData withNickName(String nickName) {
+    public ContactData withNickName(String nickName) {
         this.nickName = nickName;
         return this;
     }
 
-    public UserData withTitle(String title) {
+    public ContactData withTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public UserData withCompany(String company) {
+    public ContactData withCompany(String company) {
         this.company = company;
         return this;
     }
 
-    public UserData withAddress(String address) {
+    public ContactData withAddress(String address) {
         this.address = address;
         return this;
     }
 
-    public UserData withHomePhone(String homePhone) {
+    public ContactData withHomePhone(String homePhone) {
         this.homePhone = homePhone;
         return this;
     }
 
-    public UserData withMobilePhone(String mobilePhone) {
+    public ContactData withMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
         return this;
     }
 
-    public UserData withWorkPhone(String workPhone) {
+    public ContactData withWorkPhone(String workPhone) {
         this.workPhone = workPhone;
         return this;
     }
 
-    public UserData withFax(String fax) {
+    public ContactData withFax(String fax) {
         this.fax = fax;
         return this;
     }
 
-    public UserData withEmail(String email) {
+    public ContactData withEmail(String email) {
         this.email = email;
         return this;
     }
@@ -246,7 +252,7 @@ public class UserData {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserData userData = (UserData) o;
+        ContactData userData = (ContactData) o;
         return id == userData.id && Objects.equals(name, userData.name) && Objects.equals(middleName, userData.middleName) && Objects.equals(lastName, userData.lastName) && Objects.equals(nickName, userData.nickName) && Objects.equals(title, userData.title) && Objects.equals(company, userData.company) && Objects.equals(address, userData.address) && Objects.equals(homePhone, userData.homePhone) && Objects.equals(mobilePhone, userData.mobilePhone) && Objects.equals(workPhone, userData.workPhone) && Objects.equals(fax, userData.fax) && Objects.equals(email, userData.email) && Objects.equals(email2, userData.email2) && Objects.equals(email3, userData.email3);
     }
 

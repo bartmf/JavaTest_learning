@@ -28,7 +28,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="ru.bart.addressbook.model.GroupData"/>
-        <mapping class="ru.bart.addressbook.model.UserData"/>
+        <mapping class="ru.bart.addressbook.model.ContactData"/>
 
     </session-factory>
 

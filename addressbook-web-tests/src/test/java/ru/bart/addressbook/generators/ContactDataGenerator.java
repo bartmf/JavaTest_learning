@@ -5,7 +5,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.bart.addressbook.model.UserData;
+import ru.bart.addressbook.model.ContactData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDataGenerator {
+public class ContactDataGenerator {
     @Parameter(names = "-c", description = "User count")
     public static int count;
 
@@ -22,7 +22,7 @@ public class UserDataGenerator {
     public static String file;
 
     public static void main(String[] args) throws IOException {
-        UserDataGenerator generator = new UserDataGenerator();
+        ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
@@ -34,11 +34,11 @@ public class UserDataGenerator {
     }
 
     private void run() throws IOException {
-        List<UserData> users = generateUsers(count);
+        List<ContactData> users = generateUsers(count);
         saveAsJson(users, new File(file));
     }
 
-    private static void saveAsJson(List<UserData> users, File file) throws IOException {
+    private static void saveAsJson(List<ContactData> users, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(users);
         try(Writer writer = new FileWriter(file)) {
@@ -47,10 +47,10 @@ public class UserDataGenerator {
     }
 
 
-    private static List<UserData> generateUsers(int count) {
-        List<UserData> users = new ArrayList<>();
+    private static List<ContactData> generateUsers(int count) {
+        List<ContactData> users = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            users.add(new UserData().withName(String.format("test %s", i))
+            users.add(new ContactData().withName(String.format("test %s", i))
                     .withMiddleName(String.format("Middle Name %s", i))
                     .withLastName(String.format("last Name %s", i))
                     .withNickName(String.format("Nick Name %s", i))

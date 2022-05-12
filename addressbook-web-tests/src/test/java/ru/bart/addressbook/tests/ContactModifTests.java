@@ -5,8 +5,8 @@ import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import ru.bart.addressbook.model.UserData;
-import ru.bart.addressbook.model.Users;
+import ru.bart.addressbook.model.ContactData;
+import ru.bart.addressbook.model.Contacts;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,13 +19,13 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.testng.Assert.*;
 
-public class UserModifTests extends TestBase{
+public class ContactModifTests extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
         if (app.user().all().size() == 0) {
-            app.user().create(new UserData().
+            app.user().create(new ContactData().
                     withName("TestNotModifName").withLastName("TestNotModifLastName"));
         }
     }
@@ -41,17 +41,17 @@ public class UserModifTests extends TestBase{
             }
         }
         Gson gson = new Gson();
-        List<UserData> list = gson.fromJson(json, new TypeToken<List<UserData>>(){}.getType());
+        List<ContactData> list = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
         return list.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validUsers")
-    void editUser(UserData user) {
-        Users before = app.db().users();
-        UserData modUser = before.iterator().next();
+    void editUser(ContactData user) {
+        Contacts before = app.db().users();
+        ContactData modUser = before.iterator().next();
         app.user().edit(user.withId(modUser.getId()));
         assertEquals(app.user().count(), before.size());
-        Users after = app.db().users();
+        Contacts after = app.db().users();
         assertThat(after, equalToObject(before.without(modUser).withAdded(user)));
         verifyUserListUi();
     }
