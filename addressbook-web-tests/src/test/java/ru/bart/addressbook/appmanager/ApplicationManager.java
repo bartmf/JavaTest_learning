@@ -26,7 +26,7 @@ public class ApplicationManager {
 
 
 
-    String pathToProp = "/home/bart/documents/JavaTest_learning/addressbook-web-tests/src/test/resources/";
+    String pathToProp = "/src/test/resources/";
     private Properties properties;
     public ApplicationManager(String browser) {
         this.browser = browser;
