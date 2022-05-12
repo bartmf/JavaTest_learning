@@ -32,12 +32,13 @@ public class UserModifTests extends TestBase{
 
     @DataProvider
     public Iterator<Object[]> validUsers() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/test/java/ru/bart/addressbook/resources/users.json"));
         String json = "";
-        String line = reader.readLine();
-        while (line != null){
-            json+= line;
-            line = reader.readLine();
+        try(BufferedReader reader = new BufferedReader(new FileReader("src/test/java/ru/bart/addressbook/resources/users.json"))) {
+            String line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
         }
         Gson gson = new Gson();
         List<UserData> list = gson.fromJson(json, new TypeToken<List<UserData>>(){}.getType());

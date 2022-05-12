@@ -20,31 +20,36 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.testng.Assert.*;
 
-public class GroupModifTests extends TestBase{
+public class GroupModifTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/test/java/ru/bart/addressbook/resources/groups.json"));
         String json = "";
-        String line = reader.readLine();
-        while (line != null){
-            json+= line;
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/test/java/ru/bart/addressbook/resources/groups.json"))) {
+            String line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+
+            }
         }
         Gson gson = new Gson();
-        List<GroupData> list = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+        List<GroupData> list = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+        }.getType());
         return list.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
+
     @BeforeMethod
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         app.goTo().groupPage();
-        if(app.group().all().size() == 0){
+        if (app.group().all().size() == 0) {
             app.group().create(new GroupData().withName("test").withHeader("test").withFooter("test"));
             app.goTo().groupPage();
         }
     }
+
     @Test(dataProvider = "validGroups")
-    void groupMod(GroupData group){
+    void groupMod(GroupData group) {
         Groups before = app.group().all();
         GroupData modGroupe = before.iterator().next();
         group.withId(modGroupe.getId());
