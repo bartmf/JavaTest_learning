@@ -24,8 +24,8 @@ public class ContactModifTests extends TestBase{
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
-        if (app.user().all().size() == 0) {
-            app.user().create(new ContactData().
+        if (app.contact().all().size() == 0) {
+            app.contact().create(new ContactData().
                     withName("TestNotModifName").withLastName("TestNotModifLastName"));
         }
     }
@@ -47,11 +47,11 @@ public class ContactModifTests extends TestBase{
 
     @Test(dataProvider = "validUsers")
     void editUser(ContactData user) {
-        Contacts before = app.db().users();
+        Contacts before = app.db().contacts();
         ContactData modUser = before.iterator().next();
-        app.user().edit(user.withId(modUser.getId()));
-        assertEquals(app.user().count(), before.size());
-        Contacts after = app.db().users();
+        app.contact().edit(user.withId(modUser.getId()));
+        assertEquals(app.contact().count(), before.size());
+        Contacts after = app.db().contacts();
         assertThat(after, equalToObject(before.without(modUser).withAdded(user)));
         verifyUserListUi();
     }

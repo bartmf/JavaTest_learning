@@ -38,12 +38,12 @@ public class ContactCreationTests extends TestBase{
   @Test(dataProvider = "validUsers")
   public void testUserCreationTests(ContactData user){
     app.goTo().homePage();
-    Contacts before = app.db().users();
+    Contacts before = app.db().contacts();
     app.goTo().createNewUser();
-    app.user().create(user);
+    app.contact().create(user);
     app.goTo().homePage();
-    assertEquals(app.user().count(), before.size() + 1);
-    Contacts after = app.db().users();
+    assertEquals(app.contact().count(), before.size() + 1);
+    Contacts after = app.db().contacts();
     assertThat(after, equalToObject(before.withAdded(user.withId(after.stream()
             .mapToInt((g) -> g.getId()).max().getAsInt()))));
     verifyUserListUi();

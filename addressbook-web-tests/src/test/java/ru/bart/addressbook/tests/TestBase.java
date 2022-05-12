@@ -57,8 +57,8 @@ public class TestBase {
 
     public void verifyUserListUi() {
         if(Boolean.getBoolean("verifyUI")){
-            Contacts dbContacts = app.db().users();
-            Contacts uiContacts = app.user().all();
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contact().all();
             assertThat(uiContacts, equalTo(dbContacts.stream()
                     .map((g) -> new ContactData().withId(g.getId())
                             .withName(g.getName())

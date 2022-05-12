@@ -3,8 +3,10 @@ package ru.bart.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import ru.bart.addressbook.model.ContactData;
 import ru.bart.addressbook.model.Contacts;
+import ru.bart.addressbook.model.GroupData;
 
 import java.io.File;
 import java.util.List;
@@ -116,5 +118,33 @@ public class ContactHelper extends HelperBase {
 
     public int count() {
         return wd.findElements(By.name(("selected[]"))).size();
+    }
+
+    public void changeGroupToAdd(GroupData group, ContactData contact) {
+        selectById(contact.getId());
+        changeGroupForAdd(group.getId());
+        submitChangeGroup();
+    }
+
+    public void changeGroupForAdd(int index) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", index));
+    }
+
+    public void submitChangeGroup() {
+        click(By.xpath("//input[@type='submit']"));
+    }
+    public void changeGroupToDel(GroupData group, ContactData contact) {
+        changeGroupForDel(group.getId());
+        selectById(contact.getId());
+        submitRemoveFromGroup();
+    }
+
+
+    public void submitRemoveFromGroup() {
+        click(By.xpath("//input[@name='remove']"));
+    }
+
+    public void changeGroupForDel(int index) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", index));
     }
 }

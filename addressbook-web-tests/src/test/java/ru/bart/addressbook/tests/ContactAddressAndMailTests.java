@@ -14,8 +14,8 @@ public class ContactAddressAndMailTests extends TestBase{
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
-        if (app.user().all().size() == 0) {
-            app.user().create(new ContactData().
+        if (app.contact().all().size() == 0) {
+            app.contact().create(new ContactData().
                     withName("TestModifName").withLastName("TestModifLastName").withMobilePhone("4567")
                     .withAddress("e7r8uoifojka09m4c 3098234(*(&^%$#").withEmail("apeodj@wsd.ruisl")
                     .withEmail2("email2").withEmail3("email3"));
@@ -25,8 +25,8 @@ public class ContactAddressAndMailTests extends TestBase{
     public void userAddressTest(){
         {
             app.goTo().homePage();
-            ContactData user = app.user().all().stream().iterator().next();
-            ContactData userInfoFromEditForm = app.user().infoFromEditForm(user);
+            ContactData user = app.contact().all().stream().iterator().next();
+            ContactData userInfoFromEditForm = app.contact().infoFromEditForm(user);
 
             assertThat(user.getAddress(), equalTo(userInfoFromEditForm.getAddress()));
         }
@@ -35,8 +35,8 @@ public class ContactAddressAndMailTests extends TestBase{
     @Test
     public void userEmailsTest(){
         app.goTo().homePage();
-        ContactData user = app.user().all().stream().iterator().next();
-        ContactData userInfoFromEditForm = app.user().infoFromEditForm(user);
+        ContactData user = app.contact().all().stream().iterator().next();
+        ContactData userInfoFromEditForm = app.contact().infoFromEditForm(user);
 
         assertThat(user.getAllEmails(), equalTo(mergeEmails(userInfoFromEditForm)));
     }

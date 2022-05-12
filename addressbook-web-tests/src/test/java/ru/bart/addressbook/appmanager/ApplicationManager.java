@@ -81,7 +81,7 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public ContactHelper user() {
+    public ContactHelper contact() {
         return contactHelper;
     }
 

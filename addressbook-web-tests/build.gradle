@@ -20,30 +20,31 @@ dependencies {
 }
 
 task testGroups (type: Test) {
-    useTestNG(){
+    useTestNG() {
         suites 'addressbook-web-tests/src/test/resources/testng-groups.xml'
     }
-    if (project.hasProperty('browser')){
+    if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
     }
-    if (project.hasProperty('target')){
+    if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
-    if (project.hasProperty('verifyUi')){
+    if (project.hasProperty('verifyUi')) {
         systemProperty 'verifyUi', "${verifyUi}"
-}
+    }
 
-task testContacts (type: Test) {
-    useTestNG(){
-        suites 'addressbook-web-tests/src/test/resources/testng-groups.xml'
-    }
-    if (project.hasProperty('browser')){
-        systemProperty 'browser', "${browser}"
-    }
-    if (project.hasProperty('target')){
-        systemProperty 'target', "${target}"
-    }
-    if (project.hasProperty('verifyUi')){
-        systemProperty 'verifyUi', "${verifyUi}"
+    task testContacts(type: Test) {
+        useTestNG() {
+            suites 'addressbook-web-tests/src/test/resources/testng-groups.xml'
+        }
+        if (project.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        if (project.hasProperty('target')) {
+            systemProperty 'target', "${target}"
+        }
+        if (project.hasProperty('verifyUi')) {
+            systemProperty 'verifyUi', "${verifyUi}"
+        }
     }
 }
