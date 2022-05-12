@@ -1,30 +1,41 @@
 package ru.bart.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 import java.util.Objects;
 
 public class UserData {
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String name;
+    @Expose
     private String middleName;
+    @Expose
     private String lastName;
+    @Expose
     private String nickName;
+    @Expose
     private String title;
+    @Expose
     private String company;
+    @Expose
     private String address;
     private String allPhones;
+    @Expose
     private String homePhone;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String workPhone;
     private String fax;
+    @Expose
     private String email;
-
+    @Expose
     private String email2;
-
+    @Expose
     private String email3;
-
     private String allEmails;
-
     private File photo;
 
     public String getName() {

@@ -17,7 +17,8 @@ public class UserAddressAndMailTests extends TestBase{
         if (app.user().all().size() == 0) {
             app.user().create(new UserData().
                     withName("TestModifName").withLastName("TestModifLastName").withMobilePhone("4567")
-                    .withAddress("e7r8uoifojka09m4c 3098234(*(&^%$#").withEmail("apeodj@wsd.ruisl"));
+                    .withAddress("e7r8uoifojka09m4c 3098234(*(&^%$#").withEmail("apeodj@wsd.ruisl")
+                    .withEmail2("email2").withEmail3("email3"));
         }
     }
     @Test
@@ -37,7 +38,7 @@ public class UserAddressAndMailTests extends TestBase{
         UserData user = app.user().all().stream().iterator().next();
         UserData userInfoFromEditForm = app.user().infoFromEditForm(user);
 
-        assertThat(user.getAddress(), equalTo(mergeEmails(userInfoFromEditForm)));
+        assertThat(user.getAllEmails(), equalTo(mergeEmails(userInfoFromEditForm)));
     }
     private String mergeEmails(UserData user) {
         return Arrays.asList(user.getHomePhone(), user.getWorkPhone(), user.getMobilePhone())
