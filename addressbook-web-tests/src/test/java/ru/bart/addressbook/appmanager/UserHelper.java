@@ -53,7 +53,7 @@ public class UserHelper extends HelperBase {
         wd.navigate().back();
         return new UserData().withId(user.getId()).withName(firstName).withLastName(lastname)
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withEmail(email)
-                .withAddress(address);
+                .withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 
     public void fillInfo(UserData userData) {
