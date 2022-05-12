@@ -53,5 +53,6 @@ public class UserModifTests extends TestBase{
         assertEquals(app.user().count(), before.size());
         Users after = app.db().users();
         assertThat(after, equalToObject(before.without(modUser).withAdded(user)));
+        verifyUserListUi();
     }
 }
