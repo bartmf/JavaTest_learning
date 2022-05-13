@@ -13,62 +13,70 @@ import java.util.Set;
 @Table(name = "addressbook")
 public class ContactData {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
-    @Column(name="firstname")
+    @Column(name = "firstname")
     @Expose
     private String name;
-    @Column(name="middlename")
+    @Column(name = "middlename")
     @Expose
     private String middleName;
     @Expose
-    @Column(name="lastname")
+    @Column(name = "lastname")
     private String lastName;
     @Expose
-    @Column(name="nickname")
+    @Column(name = "nickname")
     private String nickName;
     @Expose
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
     @Expose
-    @Column(name="company")
+    @Column(name = "company")
     private String company;
     @Expose
-    @Column(name="address")
+    @Column(name = "address")
     @Type(type = "text")
     private String address;
     transient private String allPhones;
     @Expose
-    @Column(name="home")
+    @Column(name = "home")
     @Type(type = "text")
     private String homePhone;
     @Expose
-    @Column(name="mobile")
+    @Column(name = "mobile")
     @Type(type = "text")
     private String mobilePhone;
     @Expose
-    @Column(name="work")
+    @Column(name = "work")
     @Type(type = "text")
     private String workPhone;
-    @Column(name="fax")
+    @Column(name = "fax")
     @Type(type = "text")
     private String fax;
     @Expose
-    @Column(name="email")
+    @Column(name = "email")
     @Type(type = "text")
     private String email;
     @Expose
-    @Column(name="email2")
+    @Column(name = "email2")
     @Type(type = "text")
     private String email2;
     @Expose
-    @Column(name="email3")
+    @Column(name = "email3")
     @Type(type = "text")
     private String email3;
     transient private String allEmails;
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+    @Column(name = "phone2")
+    @Type(type = "text")
+    private String phone2;
+    @Column(name = "address2")
+    @Type(type = "text")
+    private String address2;
+
+    transient private String allAddrress;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupData> groups = new HashSet<>();
@@ -239,6 +247,33 @@ public class ContactData {
         return this;
     }
 
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public ContactData withPhone2(String phone2) {
+        this.phone2 = phone2;
+        return this;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public ContactData withAddress2(String address2) {
+        this.address2 = address2;
+        return this;
+    }
+
+    public String getAllAddrress() {
+        return allAddrress;
+    }
+
+    public ContactData withAllAddrress(String allAddrress) {
+        this.allAddrress = allAddrress;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -252,12 +287,12 @@ public class ContactData {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactData userData = (ContactData) o;
-        return id == userData.id && Objects.equals(name, userData.name) && Objects.equals(middleName, userData.middleName) && Objects.equals(lastName, userData.lastName) && Objects.equals(nickName, userData.nickName) && Objects.equals(title, userData.title) && Objects.equals(company, userData.company) && Objects.equals(address, userData.address) && Objects.equals(homePhone, userData.homePhone) && Objects.equals(mobilePhone, userData.mobilePhone) && Objects.equals(workPhone, userData.workPhone) && Objects.equals(fax, userData.fax) && Objects.equals(email, userData.email) && Objects.equals(email2, userData.email2) && Objects.equals(email3, userData.email3);
+        ContactData that = (ContactData) o;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(nickName, that.nickName) && Objects.equals(title, that.title) && Objects.equals(company, that.company) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(fax, that.fax) && Objects.equals(email, that.email) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(photo, that.photo) && Objects.equals(phone2, that.phone2) && Objects.equals(address2, that.address2) && Objects.equals(groups, that.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, middleName, lastName, nickName, title, company, address, homePhone, mobilePhone, workPhone, fax, email, email2, email3);
+        return Objects.hash(id, name, middleName, lastName, nickName, title, company, address, homePhone, mobilePhone, workPhone, fax, email, email2, email3, photo, phone2, address2, groups);
     }
 }
