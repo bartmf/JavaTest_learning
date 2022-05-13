@@ -1,4 +1,4 @@
-package ru.bart.rest;
+package ru.bart.rest.model;
 
 import java.util.Objects;
 
