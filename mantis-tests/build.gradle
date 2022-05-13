@@ -8,17 +8,22 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation 'org.testng:testng:7.5'
     implementation 'org.seleniumhq.selenium:selenium-java:4.1.4'
     implementation 'org.hamcrest:hamcrest-library:2.2'
+    implementation 'commons-net:commons-net:3.8.0'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+    implementation 'commons-net:commons-net:3.8.0'
+    implementation 'org.subethamail:subethasmtp:3.1.7'
+    implementation 'ru.lanwen.verbalregex:java-verbal-expressions:1.8'
 //    implementation 'com.beust:jcommander:1.82'
 //    implementation 'com.google.code.gson:gson:2.9.0'
-//    implementation 'ch.qos.logback:logback-classic:1.3.0-alpha15'
-//    implementation 'mysql:mysql-connector-java:8.0.29'
-//    implementation 'org.hibernate:hibernate-core:5.1.0.Final'
+    implementation 'ch.qos.logback:logback-classic:1.3.0-alpha15'
+    implementation 'mysql:mysql-connector-java:8.0.29'
+    implementation 'org.hibernate:hibernate-core:5.1.0.Final'
 }
-
 task {
     useTestNG() {
         suites 'src/test/resources/testng.xml'
